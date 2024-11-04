@@ -23,7 +23,7 @@ resource "aws_instance" "ec2" {
     for_each = var.instance_name[count.index] == "Nexus" ? [1] : []
     content {
       device_name = "/dev/sdf"  # Device name for the additional volume
-      volume_size = 20          # Size of the additional volume in GB
+      volume_size = 12          # Size of the additional volume in GB
       volume_type = "gp2"
     }
   }
