@@ -7,7 +7,7 @@ variable "vpc_id" {
 }
 
 variable "instance_name" {
-  default = ["jenkins.server", "Tomcat-1", "Tomcat-2", "Nexus"]
+  default = ["jenkins.server", "Tomcat-1", "Monitoring_pigin", "Nexus"]
 }
 
 resource "aws_instance" "ec2" {
