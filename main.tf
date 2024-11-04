@@ -7,7 +7,7 @@ variable "vpc_id" {
 }
 
 variable "instance_name" {
-  default = ["jenkins.server", "Tomcat", "Nesus", "4"]
+  default = ["jenkins.server", "Tomcat", "Nexus", "4"]
 }
 
 resource "aws_instance" "ec2" {
@@ -18,9 +18,14 @@ resource "aws_instance" "ec2" {
   vpc_security_group_ids = ["sg-0d890a3779134bcbe"]
   subnet_id              = "subnet-0b1be3912a15fbacc"
 
-  root_block_device {
-    volume_size = 20  # Set the root volume size to 20 GB
-    volume_type = "gp2"  # Optional: Choose volume type (gp2, gp3, io1, etc.)
+  # Add an extra 20 GB volume only for the "Nexus" instance
+  dynamic "ebs_block_device" {
+    for_each = var.instance_name[count.index] == "Nexus" ? [1] : []
+    content {
+      device_name = "/dev/sdf"  # Device name for the additional volume
+      volume_size = 20          # Size of the additional volume in GB
+      volume_type = "gp2"
+    }
   }
 
   tags = {
