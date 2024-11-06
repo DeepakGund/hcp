@@ -7,7 +7,7 @@ variable "vpc_id" {
 }
 
 variable "instance_name" {
-  default = ["New_HCP"]
+  default = ["jenkins.server", "Tomcat-1", "Monitoring_pigin", "Nexus"]
 }
 
 resource "aws_instance" "ec2" {
@@ -20,7 +20,7 @@ resource "aws_instance" "ec2" {
 
   # Set root volume size conditionally for "Nexus"
   root_block_device {
-    volume_size = var.instance_name[count.index] == "New_HCP" ? 8 : 8  # 20 GB for Nexus, 8 GB for others
+    volume_size = var.instance_name[count.index] == "Nexus" ? 20 : 8  # 20 GB for Nexus, 8 GB for others
     volume_type = "gp2"  # Volume type can be adjusted as needed
   }
 
