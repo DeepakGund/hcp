@@ -13,7 +13,7 @@ variable "instance_name" {
 resource "aws_instance" "ec2" {
   count                  = 1
   ami                    = "ami-004a0173a724e2261"
-  instance_type          = "t2.medium"
+  instance_type          = "t2.small"
   key_name               = "us-west-02"
   vpc_security_group_ids = ["sg-0d890a3779134bcbe"]
   subnet_id              = "subnet-0b1be3912a15fbacc"
